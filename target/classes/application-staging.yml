@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 100
+      minimum-idle: 20
+      idle-timeout: 30000
+
+springdoc:
+  api-docs:
+    enabled: false

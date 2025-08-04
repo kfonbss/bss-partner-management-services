@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Include Logback defaults -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- Define a console appender for text-based logging -->
+    <appender name="CONSOLE-LOCAL" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Define a pattern layout for text-based logging -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Define a pattern layout for text-based logging -->
+            <pattern>%-5level[%thread] | %logger{20} | %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE-JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+                <includeTimestamp>false</includeTimestamp>
+                <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+                    <prettyPrint>true</prettyPrint>
+                </jsonFormatter>
+            </layout>
+        </encoder>
+    </appender>
+
+
+    <!-- Configure log levels for profiles -->
+    <springProfile name="local">
+        <!-- Set the root log level to DEBUG for the local profile -->
+        <root level="INFO">
+            <!-- Reference the CONSOLE appender for logging -->
+            <appender-ref ref="CONSOLE-LOCAL"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="!local">
+        <!-- Set the root log level to INFO for non-local profiles -->
+        <root level="INFO">
+            <!-- Reference the CONSOLE appender for logging -->
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+</configuration>

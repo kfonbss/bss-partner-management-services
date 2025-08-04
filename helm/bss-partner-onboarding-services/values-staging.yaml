@@ -1,0 +1,81 @@
+replicaCount: 1
+app: ksm-pgr-services
+namespace: egov-staging
+
+image:
+  repository: ksm-pgr-services
+  pullPolicy: Always
+  name: 095566081345.dkr.ecr.ap-south-1.amazonaws.com/ksm-pgr-services-staging
+  tag: latest
+
+application:
+  config:
+    mdms_url: ksm-core-mdm-service:8080/egov-mdms-service
+    idgen_url: ksm-core-idgen-service:8080/idgen-services
+    file_url: ksm-kfm-file-services:8080/file-management-services
+    dmdm_url: ksm-core-dmdm-service:8080/dmdm-services
+    pdf_url: ksm-core-pdf-service:8080/pdf-service
+    sms_url: ksm-core-sms-service:8080/sms-service
+    otp_url: ksm-core-otp-service:8080/otp-service
+    urlshortening_url: ksm-core-url-service:8080/u
+    file_create_topic: file.create.staging
+    file_update_topic: file.update.staging
+    file_resubmit_topic : file.resubmit.staging
+    database_url: jdbc:postgresql://ksm-pgr-services-db-staging-20240829123021933400000001.cjmsejiyf6ey.ap-south-1.rds.amazonaws.com:5432/pgr_staging?ssl=true&sslmode=require
+    database_user: app_user
+    service_bucket: ksm-pgr-services-staging-v2
+    region: ap-south-1
+    cdn_lb_url: https://staging.cdn.ksmart.live/ulb-logos/
+    petition_lb_url: https://staging.live/ui/pgr/public/summary/
+    delete_lb_url: https://staging.api.ksmart.live/pgr-services/
+    edit_lb_url: https://staging.api.ksmart.live/ui/
+    domain_url: staging.api.ksmart.live
+    kafka_servers: b-2.kafkastaging.zc4hs2.c2.kafka.ap-south-1.amazonaws.com:9094,b-1.kafkastaging.zc4hs2.c2.kafka.ap-south-1.amazonaws.com:9094,b-3.kafkastaging.zc4hs2.c2.kafka.ap-south-1.amazonaws.com:9094
+    profile: staging
+
+imagePullSecrets: [ ]
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: { }
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ksm-pgr-services
+  roleArn: "arn:aws:iam::095566081345:role/ksm-pgr-services-role-staging"
+
+podAnnotations: { }
+
+secretMap:
+  name: ksm-pgr-services
+
+podSecurityContext: { }
+
+securityContext: { }
+
+service:
+  port: 8080
+  targetPort: 8080
+  targetGroupARN: "arn:aws:elasticloadbalancing:ap-south-1:095566081345:targetgroup/ksm-pgr-services-staging/bdf206b15b9d09dd"
+
+resources:
+ requests:
+   memory: "2000Mi"
+   cpu: "1000m"
+ limits:
+   memory: "2000Mi"
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
+
+nodeSelector: { }
+
+tolerations: [ ]
+
+affinity: { }

@@ -1,0 +1,53 @@
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      enabled: true
+  endpoints:
+    web:
+      base-path: /
+
+server:
+  servlet:
+    context-path: /bss-sms-services
+  port: 8080
+
+
+spring:
+
+  datasource:
+
+    driverClassName: org.postgresql.Driver
+
+    url: jdbc:postgresql://localhost:5432/sms-local
+
+    username: postgres
+
+    password: 123ikm
+
+  liquibase:
+
+    enabled: 'true'
+
+    drop-first: 'false'
+
+    change-log: classpath:/db/changelog/changelog-master.xml
+
+  jpa:
+
+    hibernate:
+
+    ddl-auto: none
+
+  security:
+    jwt:
+      secret: IwXWuCZRv/a7SXuV/GIZvO/zELE00N5jYoXXoF3Y4ZPl+A62V4nwthL13vCzQiJ17DzWYkroiAonYbRX9fHHwA==
+
+
+sms:
+  api:
+    url: https://thesmsbuddy.com/api/v1/sms/send
+
+
+
