@@ -1,5 +1,6 @@
 CREATE TABLE partnergstdetail (
-    partnerid           BIGINT NOT NULL PRIMARY KEY,
+     id                 UUID NOT NULL PRIMARY KEY,
+    partnerid           BIGINT ,
     gstin               VARCHAR(20),
     sac                 VARCHAR(20),
     gstindoc            VARCHAR(120),

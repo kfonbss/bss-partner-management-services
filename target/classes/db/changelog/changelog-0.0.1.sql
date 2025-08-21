@@ -1,5 +1,6 @@
 CREATE TABLE partnerdetail (
-    partnerid                       BIGINT NOT NULL PRIMARY KEY,
+     id                             UUID NOT NULL PRIMARY KEY,
+    partnerid                       BIGINT ,
     partnercompanyname              VARCHAR(150),
     companyregistrationno           VARCHAR(64),
     servicetaxno                    VARCHAR(64),

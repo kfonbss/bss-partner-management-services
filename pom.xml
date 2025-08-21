@@ -10,10 +10,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>in.gov.kfon.bss</groupId>
-    <artifactId>bss-core-sms-services</artifactId>
+    <artifactId>bss-partner-onboarding-services</artifactId>
     <version>${build.version}</version>
     <name>bss-core-sms-services</name>
-    <description>KFON-BSS SMS Service</description>
+    <description>KFON-BSS Partner onboarding Service</description>
     <properties>
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>

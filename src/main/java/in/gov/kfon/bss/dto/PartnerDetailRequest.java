@@ -1,0 +1,96 @@
+package in.gov.kfon.bss.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PartnerDetailRequest {
+    private String partnercompanyname;
+    private String companyregistrationno;
+    private String servicetaxno;
+    private String incometaxno;
+    private String vatno;
+    private String state;
+    private Integer pin;
+    private LocalDate registrationdate;
+    private String agreementno;
+    private LocalDate agreementdate;
+    private String keycontactname;
+    private Long keycontactnumber;
+    private String keycontactemail;
+    private LocalDateTime lastupdate;
+    private Integer isactive;
+    private String statecode;
+    private String ptype;
+    private String address;
+    private String agreementcopy;
+    private String bankpasscopy;
+    private String incometaxproof;
+    private String bank_acholder;
+    private String bank_actype;
+    private String bank_name;
+    private String bank_branch;
+    private String bank_acno;
+    private String bank_ifsc;
+    private String companynature;
+    private String stcode;
+    private String address_line1;
+    private String address_line2;
+    private String city;
+    private String pincode;
+    private String statename;
+    private String district;
+    private String gstin;
+    private String service_description;
+    private String sac;
+    private String gstindoc;
+    private Boolean gst_verfied;
+    private Boolean taxpayertype;
+    private Boolean gstdeclartionstatus;
+    private Boolean subonrecharge;
+    private Short mspverified;
+    private String remarks;
+    private LocalDateTime mspverfieddate;
+    private LocalDateTime bankverfieddate;
+    private LocalDate lastrenewed_agreementdate;
+    private String updated_by;
+    private String lastrenewed_agreementcopy;
+    private Short loc_type;
+    private Short gst_status;
+    private String catagory;
+    private String vas_enabled;
+    private String cbldoc;
+    private String territory_name;
+    private String ptnrattid;
+    private String ptnrlang;
+    private String pop_name;
+    private String pop_pincode;
+    private Boolean subonlinerechargeikon;
+    private Boolean subonlinerechargehdfc;
+    private Boolean updated_service_area;
+    private String lnk_es_status;
+    private String lnk_es_lnktype;
+    private LocalDate lnk_es_date;
+    private String frc_recieved;
+    private LocalDate frc_paymt_date;
+    private String reasfor_nlink_delivery;
+    private String brief_remarks;
+    private Boolean is_active;
+    private Boolean allowfreecon;
+    private Integer enable_acs;
+    private String aadhaar_number;
+    private String aadhaarcopy;
+    private String olt_provider;
+    private Long alternate_phone;
+    private Boolean enable_ews_service;
+    private LocalDateTime create_date;
+    private LocalDateTime update_date;
+}

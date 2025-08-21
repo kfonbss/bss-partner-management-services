@@ -1,5 +1,6 @@
 CREATE TABLE revenueshare (
-    revenueshareid      SERIAL PRIMARY KEY,
+      id            UUID NOT NULL PRIMARY KEY,
+    revenueshareid      SERIAL ,
     sharename           VARCHAR(1000),
     anpshare            NUMERIC(5,2) NOT NULL DEFAULT 10.00,
     agpshare            NUMERIC(5,2) NOT NULL DEFAULT 7.00,

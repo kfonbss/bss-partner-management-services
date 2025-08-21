@@ -1,5 +1,6 @@
 CREATE TABLE partnergroup (
-    partnergroupid  SERIAL PRIMARY KEY,
+      id            UUID NOT NULL PRIMARY KEY,
+    partnergroupid  SERIAL ,
     anp             BIGINT,
     agp             BIGINT,
     msp             BIGINT,

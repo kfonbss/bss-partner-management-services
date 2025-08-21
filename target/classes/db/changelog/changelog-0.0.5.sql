@@ -1,5 +1,6 @@
 CREATE TABLE package_map (
-    mapid       BIGSERIAL PRIMARY KEY,
+     id         UUID NOT NULL PRIMARY KEY,
+    mapid       BIGSERIAL ,
     partnerid   BIGINT NOT NULL,
     packageid   INTEGER,
     status      BOOLEAN NOT NULL DEFAULT TRUE,

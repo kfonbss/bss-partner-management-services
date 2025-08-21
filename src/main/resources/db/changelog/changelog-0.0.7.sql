@@ -1,5 +1,6 @@
 CREATE TABLE package (
-    packageid               SERIAL PRIMARY KEY,
+       id            UUID NOT NULL PRIMARY KEY,
+    packageid               SERIAL ,
     packagename             VARCHAR(45) NOT NULL,
     renewperiod             INTEGER NOT NULL,
     free_service            INTEGER,

@@ -10,8 +10,8 @@ management:
 
 server:
   servlet:
-    context-path: /bss-sms-services
-  port: 8080
+    context-path: /bss-partner-onboarding-services
+  port: 8082
 
 
 spring:
@@ -20,7 +20,7 @@ spring:
 
     driverClassName: org.postgresql.Driver
 
-    url: jdbc:postgresql://localhost:5432/sms-local
+    url: jdbc:postgresql://localhost:5432/bss-partner-onboarding
 
     username: postgres
 
