@@ -1,5 +1,6 @@
 CREATE TABLE bank_details (
-    bank_id         BIGSERIAL PRIMARY KEY,
+    bank_details_id UUID NOT NULL PRIMARY KEY,
+    bank_id         BIGSERIAL,
     bank_name       VARCHAR(100) NOT NULL,
     bank_ifsc_code  VARCHAR(100) NOT NULL,
     bank_micr       VARCHAR(100) NOT NULL,

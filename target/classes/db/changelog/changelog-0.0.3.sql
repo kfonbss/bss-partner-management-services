@@ -10,7 +10,7 @@ CREATE TABLE partnergstdetail (
     verified_date       TIMESTAMP,
     verfied_by          VARCHAR(50),
     taxpayertype        BOOLEAN,
-    gst_status          SMALLINT DEFAULT 0,
+    gst_status          int DEFAULT 0,
     legalname           VARCHAR(250),
     tradename           VARCHAR(250),
     pan                 VARCHAR(10),

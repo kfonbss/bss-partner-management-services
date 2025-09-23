@@ -1,5 +1,5 @@
 CREATE TABLE pincode_details (
-    pinid            UUID NOT NULL PRIMARY KEY,
+    pin_id            UUID NOT NULL PRIMARY KEY,
     id                  BIGSERIAL ,
     pincode             INTEGER,
     post_office_name    VARCHAR(250),

@@ -1,4 +1,4 @@
-package in.gov.kfon.bss.config;
+package in.gov.kfon.partner.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
