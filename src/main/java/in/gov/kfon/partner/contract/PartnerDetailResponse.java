@@ -1,0 +1,98 @@
+package in.gov.kfon.partner.contract;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PartnerDetailResponse {
+  private UUID id;
+  private Long partnerId;
+  private String partnerCompanyName;
+  private String companyRegistrationNo;
+  private String serviceTaxNo;
+  private String incomeTaxNo;
+  private String vatNo;
+  private String state;
+  private Integer pin;
+  private LocalDate registrationDate;
+  private String agreementNo;
+  private LocalDate agreementDate;
+  private String keyContactName;
+  private Long keyContactNumber;
+  private String keyContactEmail;
+  private LocalDate lastUpdate;
+  private Integer isActive;
+  private String stateCode;
+  private String ptype;
+  private String address;
+  private String agreementCopy;
+  private String bankPassCopy;
+  private String incomeTaxProof;
+  private String bankAcHolder;
+  private String bankAcType;
+  private String bankName;
+  private String bankBranch;
+  private String bankAcNo;
+  private String bankIfsc;
+  private String companyNature;
+  private String stCode;
+  private String addressLine1;
+  private String addressLine2;
+  private String city;
+  private String pincode;
+  private String stateName;
+  private String district;
+  private String gstin;
+  private String serviceDescription;
+  private String sac;
+  private String gstinDoc;
+  private Boolean gstVerified;
+  private Boolean taxPayerType;
+  private Boolean gstDeclarationStatus;
+  private Boolean subOnRecharge;
+  private Short mspVerified;
+  private String remarks;
+  private LocalDateTime mspVerifiedDate;
+  private LocalDateTime bankVerifiedDate;
+  private LocalDate lastRenewedAgreementDate;
+  private String updatedBy;
+  private String lastRenewedAgreementCopy;
+  private Short locType;
+  private Short gstStatus;
+  private String category;
+  private String vasEnabled;
+  private String cblDoc;
+  private String territoryName;
+  private String ptnrAttId;
+  private String ptnrLang;
+  private String popName;
+  private String popPincode;
+  private Boolean subOnlineRechargeIkon;
+  private Boolean subOnlineRechargeHdfc;
+  private Boolean updatedServiceArea;
+  private String lnkEsStatus;
+  private String lnkEsLnkType;
+  private LocalDate lnkEsDate;
+  private String frcReceived;
+  private LocalDate frcPaymtDate;
+  private String reasForNlinkDelivery;
+  private String briefRemarks;
+  private Boolean isActiveFlag;
+  private Boolean allowFreeCon;
+  private Integer enableAcs;
+  private String aadhaarNumber;
+  private String aadhaarCopy;
+  private String oltProvider;
+  private Long alternatePhone;
+  private Boolean enableEwsService;
+  private LocalDateTime createDate;
+  private LocalDateTime updateDate;
+}
