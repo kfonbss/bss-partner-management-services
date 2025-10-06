@@ -1,5 +1,6 @@
 CREATE TABLE pop_master (
-    id          SERIAL PRIMARY KEY,
+    pop_master_id UUID NOT NULL PRIMARY KEY,
+    id          SERIAL,
     popname     VARCHAR(256),
     district    VARCHAR(100),
     poptype     VARCHAR(50),

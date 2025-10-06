@@ -1,4 +1,4 @@
-package in.gov.kfon.bss.config;
+package in.gov.kfon.partner.config;
 
 import jakarta.servlet.MultipartConfigElement;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;

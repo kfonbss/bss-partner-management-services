@@ -12,3 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.1] - 2025-07-29
 ### Added
 - Initial version : project structure
+
+## [0.0.4] - 2025-09-23
+### Added
+- Subscriber table creation , creation and transfer apis

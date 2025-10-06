@@ -1,5 +1,6 @@
 CREATE TABLE block_details (
-    id              BIGSERIAL PRIMARY KEY,
+    block_details_id UUID NOT NULL PRIMARY KEY,
+    id              BIGSERIAL,
     village_name    VARCHAR(250),
     block_id        INTEGER,
     block_name      VARCHAR(250),
