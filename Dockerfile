@@ -1,28 +1,41 @@
-FROM amazoncorretto:17.0.8-al2023-headless AS build
+# syntax=docker/dockerfile:1
 
-ARG WORK_DIR
-ARG GITHUB_USERNAME
-ARG GITHUB_TOKEN
-
+# =========================
+# 🏗️ Build Stage
+# =========================
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /app
 
-COPY ${WORK_DIR}/pom.xml ./pom.xml
-COPY ${WORK_DIR}/start.sh ./start.sh
-COPY ${WORK_DIR}/.mvn ./.mvn
-COPY ${WORK_DIR}/mvnw ./mvnw
-COPY ${WORK_DIR}/src ./src
-COPY ${WORK_DIR}/version.properties ./version.properties
+# Copy only pom.xml first (to leverage Docker caching)
+COPY pom.xml ./
 
-RUN mkdir -p /root/.m2 && \
-    echo "<settings><servers><server><id>github</id><username>${GITHUB_USERNAME}</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > /root/.m2/settings.xml
+# Pre-download dependencies (optional but faster for later rebuilds)
+RUN mvn -B dependency:go-offline -Dmaven.test.skip=true
 
-RUN /app/mvnw -B -f /app/pom.xml package -DskipTests
+# Copy source code (this invalidates cache only if code changes)
+COPY src ./src
+COPY start.sh .
+COPY version.properties .
 
-FROM amazoncorretto:17.0.8-al2023-headless
+# Build the JAR (no need to run dependency:go-offline again)
+RUN mvn -B clean package -DskipTests
+
+# =========================
+# 🚀 Runtime Stage
+# =========================
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /opt/egov
 
-COPY --from=build /app/target/*.jar /app/start.sh /opt/egov/
+# Copy JAR & start script
+COPY --from=build /app/target/*.jar .
+COPY --from=build /app/start.sh .
 
-RUN chmod +x /opt/egov/start.sh
+# Fix line endings and permissions
+RUN sed -i 's/\r$//' start.sh && chmod +x start.sh
 
-CMD ["/opt/egov/start.sh"]
+# Run as non-root user
+RUN useradd -m appuser
+USER appuser
+
+EXPOSE 8080
+CMD ["./start.sh"]
