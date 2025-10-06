@@ -10,7 +10,7 @@ management:
 
 server:
   servlet:
-    context-path: /pgr-services
+    context-path: /bss-partner-onboarding-services
   port: 8080
 
 app:
