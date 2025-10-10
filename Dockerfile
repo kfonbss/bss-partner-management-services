@@ -1,28 +1,13 @@
-FROM amazoncorretto:17.0.8-al2023-headless AS build
+FROM maven:3.9.8-eclipse-temurin-21 AS build
+WORKDIR /workspace
+COPY pom.xml .
+RUN --mount=type=cache,target=/root/.m2 mvn -q -DskipTests dependency:go-offline
+COPY src ./src
+RUN --mount=type=cache,target=/root/.m2 mvn -q -DskipTests package
 
-ARG WORK_DIR
-ARG GITHUB_USERNAME
-ARG GITHUB_TOKEN
-
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
-
-COPY ${WORK_DIR}/pom.xml ./pom.xml
-COPY ${WORK_DIR}/start.sh ./start.sh
-COPY ${WORK_DIR}/.mvn ./.mvn
-COPY ${WORK_DIR}/mvnw ./mvnw
-COPY ${WORK_DIR}/src ./src
-COPY ${WORK_DIR}/version.properties ./version.properties
-
-RUN mkdir -p /root/.m2 && \
-    echo "<settings><servers><server><id>github</id><username>${GITHUB_USERNAME}</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > /root/.m2/settings.xml
-
-RUN /app/mvnw -B -f /app/pom.xml package -DskipTests
-
-FROM amazoncorretto:17.0.8-al2023-headless
-WORKDIR /opt/egov
-
-COPY --from=build /app/target/*.jar /app/start.sh /opt/egov/
-
-RUN chmod +x /opt/egov/start.sh
-
-CMD ["/opt/egov/start.sh"]
+COPY --from=build /workspace/target/*.jar app.jar
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 CMD curl -fsS http://localhost:8080/actuator/health || exit 1
+ENTRYPOINT ["java","-jar","/app/app.jar"]
