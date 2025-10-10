@@ -1,0 +1,56 @@
+{{- /*
+    Simple, robust Ingress for ALB.
+  Requires:
+    - .Values.ingress.enabled = true
+    - .Values.ingress.hosts = [{ host: "...", paths: [{path:"/", pathType:"Prefix"}]}]
+    - .Values.service.port set to your containerPort (default 8080)
+    Expects TLS in list-style ONLY to avoid merge warnings.
+  */ -}}
+  {{- $ing := .Values.ingress | default dict -}}
+  {{- if and ($ing.enabled) ($ing.hosts) (gt (len $ing.hosts) 0) -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-ing
+  annotations:
+    kubernetes.io/ingress.class: {{ default "alb" $ing.className | quote }}
+    {{- with $ing.alb }}
+    {{- if .scheme }}
+    alb.ingress.kubernetes.io/scheme: {{ .scheme | quote }}
+    {{- end }}
+    {{- if .targetType }}
+    alb.ingress.kubernetes.io/target-type: {{ .targetType | quote }}
+    {{- end }}
+    {{- if .healthcheckPath }}
+    alb.ingress.kubernetes.io/healthcheck-path: {{ .healthcheckPath | quote }}
+    {{- end }}
+    {{- end }}
+    {{- if and $ing.hosts (hasKey (index $ing.hosts 0) "host") }}
+    external-dns.alpha.kubernetes.io/hostname: {{ (index $ing.hosts 0).host | quote }}
+    {{- end }}
+    {{- with $ing.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  ingressClassName: {{ default "alb" $ing.className | quote }}
+  rules:
+    {{- range $h := $ing.hosts }}
+    - host: {{ $h.host | quote }}
+      http:
+        paths:
+          {{- $paths := (default (list (dict "path" "/" "pathType" "Prefix")) $h.paths) -}}
+            {{- range $p := $paths }}
+            - path: {{ default "/" $p.path | quote }}
+              pathType: {{ default "Prefix" $p.pathType }}
+              backend:
+                service:
+                  name: {{ $.Release.Name }}-svc
+                  port:
+                    number: {{ default 8080 $.Values.service.port }}
+            {{- end }}
+    {{- end }}
+  {{- if and $ing.tls (kindIs "slice" $ing.tls) (gt (len $ing.tls) 0) }}
+  tls:
+    {{- toYaml $ing.tls | nindent 4 }}
+  {{- end }}
+  {{- end }}

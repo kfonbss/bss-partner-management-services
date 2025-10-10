@@ -1,0 +1,80 @@
+image:
+  repository: "274024437453.dkr.ecr.ap-south-1.amazonaws.com/bss-partner-management-services"
+  tag: "dev"
+  pullPolicy: IfNotPresent
+  # Use your ECR pull secret if you created it:
+  pullSecrets: ["ecr-pull-secret"]
+
+service:
+  type: ClusterIP
+  servicePort: 80        # service port exposed inside cluster
+  port: 8080             # containerPort your app listens on
+
+db:
+  host: bss-partner-management-dev.cbsio6i24e5a.ap-south-1.rds.amazonaws.com
+  port: 5432
+  name: bss_partner-management-dev-db    # you created this DB already (with hyphens)
+  user: appuser
+  password: "Kfonbss2025#"
+  sslmode: require
+
+spring:
+  profiles: dev
+
+# Probes tuned to your app logs:
+# - Tomcat: 8080
+# - Context path: /bss-partner-management-services
+# - Actuator base path: '' (so health is directly under the context)
+probes:
+  port: 8080
+  basePath: "/bss-partner-management-services"
+  readinessPath: "/health"
+  livenessPath: "/health"
+  fallbackHealth: "/health"   # used by startupProbe
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 6
+  startup:
+    enabled: true
+    failureThreshold: 30
+    periodSeconds: 5
+
+# Optional ergonomics picked up by Deployment
+timezone: "Asia/Kolkata"
+javaToolOptions: "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75"
+
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: null
+
+ingress:
+  enabled: true
+  className: alb
+  alb:
+    scheme: internet-facing
+    targetType: ip
+    # ALB target group health should hit your app health endpoint:
+    healthcheckPath: /bss-partner-management-services/health
+  annotations: {}
+  hosts:
+    - host: api.dev.kfonbss.co.in
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: bss-partner-management-tls
+      hosts:
+        - api.dev.kfonbss.co.in
+
+# (Optional) resources (uncomment and tune)
+# resources:
+#   requests:
+#     cpu: "250m"
+#     memory: "512Mi"
+#   limits:
+#     cpu: "500m"
+#     memory: "1Gi"
