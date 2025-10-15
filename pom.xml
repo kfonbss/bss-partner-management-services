@@ -11,7 +11,7 @@
     </parent>
     <groupId>in.gov.kfon.bss</groupId>
     <artifactId>bss-partner-onboarding-services</artifactId>
-    <version>${build.version}</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>bss-core-sms-services</name>
     <description>KFON-BSS Partner onboarding Service</description>
     <properties>

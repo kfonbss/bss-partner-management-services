@@ -1,0 +1,17 @@
+{
+  "Comment": "Alias for api.dev.kfonbss.co.in to ALB",
+  "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "api.dev.kfonbss.co.in",
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "ZP97RAFLXTNZK",
+          "DNSName": "k8s-dev-bssenqui-406c96470b-226243871.ap-south-1.elb.amazonaws.com",
+          "EvaluateTargetHealth": true
+        }
+      }
+    }
+  ]
+}
