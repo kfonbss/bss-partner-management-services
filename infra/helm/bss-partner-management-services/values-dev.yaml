@@ -11,7 +11,7 @@ service:
   port: 8080             # containerPort your app listens on
 
 db:
-  host: bss-enquiry-dev.cbsio6i24e5a.ap-south-1.rds.amazonaws.com
+  host: bss-partner-management-dev.cbsio6i24e5a.ap-south-1.rds.amazonaws.com
   port: 5432
   name: bss_partner-management-dev-db    # you created this DB already (with hyphens)
   user: appuser

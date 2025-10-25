@@ -8,7 +8,7 @@
         "Type": "A",
         "AliasTarget": {
           "HostedZoneId": "ZP97RAFLXTNZK",
-          "DNSName": "k8s-dev-bssenqui-406c96470b-226243871.ap-south-1.elb.amazonaws.com",
+          "DNSName": "k8s-dev-bsspartner-406c96470b-226243871.ap-south-1.elb.amazonaws.com",
           "EvaluateTargetHealth": true
         }
       }
